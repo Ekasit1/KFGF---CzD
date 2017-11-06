@@ -1,5 +1,5 @@
 <?php
-class sql {
+class sql { // jjjjjjjjjjjjjjj
 	private static $con;
 	public function boot() {
 		try {
