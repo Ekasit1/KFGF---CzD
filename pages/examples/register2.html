@@ -32,7 +32,7 @@
   <div class="register-logo">
     <a href="../../index2.html"><b>KFGF</b>Registrering</a>
   </div>
-
+  
   <div class="register-box-body">
     <p class="login-box-msg">Registrera en ny Medlem</p>
 
@@ -64,7 +64,8 @@
         <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
       </div><br>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Födelsedatum">
+        <label for="">(YYYY/MM/DD/XXXX)</label>
+        <input type="text" class="form-control" id="birthdate" placeholder="Födelsedatum">
         <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -141,6 +142,10 @@
 
 <script>
   $("#parentPhone").mask('00-000 00 00');
+</script>
+
+<script>
+  $("#birthdate").mask('0000/00/00-0000');
 </script>
 
 <script>
