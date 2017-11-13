@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>KFGF | Ledar registrering</title>
+  <title>KFGF | Medlems registrering</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -34,40 +34,68 @@
   </div>
 
   <div class="register-box-body">
-    <p class="login-box-msg">Registrera en ny ledare</p>
+    <p class="login-box-msg">Registrera en ny Medlem</p>
 
     <form action="../../index.html" method="post">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Namn">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Användarnamn">
+      <div class="form-group has-feedback" style="margin-bottom:0">
+        <input type="text" class="form-control" placeholder="Föräldrars namn">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
+      </div><br>
+      <div class="form-group has-feedback" style="margin-bottom:0">
         <input type="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
+      </div><br>
+      <div class="form-group has-feedback" style="margin-bottom:0">
+        <input type="email" class="form-control" placeholder="Föräldrars Email">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div><br>
       <div class="input-group has-feedback">
         <span class="input-group-addon">+46</span>
-        <input type="text" class="form-control" id="phone" placeholder="Telefonnummer">
+        <input type="text" class="form-control" id="parentPhone" placeholder="Telefonnummer">
+        <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
+      </div><br>
+      <div class="input-group has-feedback">
+        <span class="input-group-addon">+46</span>
+        <input type="text" class="form-control" id="phone" placeholder="Föräldrars Telefonnummer">
         <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
       </div><br>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Lösenord">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder="Födelsedatum">
+        <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Skriv in lösenord igen">
-        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+        <label for="">Fritidsgård</label>
+        <select class="selectpicker form-control"> 
+          <option>Barbacka</option>
+          <option>Degeberga</option>
+          <option>Fjälkinge</option>
+          <option>Näsby</option>
+          <option>Slottet</option>
+          <option>Tollarp</option>
+          <option>Tullen</option>
+          <option>Vilan</option>
+          <option>Åhus</option>
+          <option>Öllsjö</option>
+          <option>Österäng</option>
+        </select>
       </div>
       <div class="form-group has-feedback">
+        <label for="">Kön</label>
         <select class="selectpicker form-control">
-          <!-- <option>Admin</option> -->
-          <option>Verksamhetschef</option>
-          <option>Föreståndare</option>
-          <option>Fritidsledare</option>
+          <option>Man</option>
+          <option>Kvinna</option>
+          <option>Annat</option>
+        </select>
+      </div>
+      <div class="form-group has-feedback">
+        <label for="">Betalt</label>
+        <select class="selectpicker form-control">
+          <option>Ja</option>
+          <option>Nej</option>
         </select>
       </div>
       <div class="row">
@@ -109,6 +137,10 @@
 
 <script>
   $("#phone").mask('00-000 00 00');
+</script>
+
+<script>
+  $("#parentPhone").mask('00-000 00 00');
 </script>
 
 <script>
