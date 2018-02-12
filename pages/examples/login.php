@@ -1,3 +1,33 @@
+<?php 
+require('../../sql.php');
+$sql = new sql();
+if(isset($_POST['uname'])) {
+  $uname = $_POST['uname'];
+  $pass = $_POST['pass'];
+  $pass = crypt($pass, "KFGFPass");
+  $user = $sql->get("select * FROM admin WHERE uname = \"". $uname. "\" and pass = \"". $pass. "\"");
+  if(count($user)) {
+    $_SESSION['id'] = $user[0]['id'];
+    if($user[0]['rank'] == 'Admin') {
+      $_SESSION['admin'] = true;
+      echo('du är inloggad som admin');
+    }
+    if($user[0]['rank'] == 'Verksamhetschef') {
+      $_SESSION['operator'] = true;
+      echo('du är inloggad som verksamhetschef');
+    }
+    if($user[0]['rank'] == 'Föreståndare') {
+      $_SESSION['director'] = true;
+      echo('du är inloggad som föreståndare');
+    }
+    if($user[0]['rank'] == 'Fritidsledare'){
+      $_SESSION['recreation'] = true;
+      echo('du är inloggad som fritidsldare');
+    }
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,13 +66,13 @@
   <div class="login-box-body">
     <p class="login-box-msg">Logga in för att påbörja din dag.</p>
 
-    <form action="../../index2.html" method="post">
+    <form action="#" method="post">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <input type="username" class="form-control" placeholder="Användarnamn" name="uname">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Lösenord">
+        <input type="password" class="form-control" placeholder="Lösenord" name="pass">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

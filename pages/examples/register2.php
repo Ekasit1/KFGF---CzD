@@ -1,3 +1,33 @@
+<?php 
+require('../../sql.php');
+$sql = new sql();
+if(isset($_POST['name'])) {
+  $name = $_POST['name'];
+  $parentName = $_POST['parentName'];
+  $adress = $_POST['adress'];
+  $adressTwo = $_POST['adressTwo'];
+  $email = $_POST['email'];
+  $parentEmail = $_POST['parentEmail'];
+  $phone = $_POST['phone'];
+  $parentPhone = $_POST['parentPhone'];
+  $birthdate = $_POST['birthdate'];
+  $youthcenter = $_POST['youthcenter'];
+  $gender = $_POST['gender'];
+  if ($_POST['age'] == false) {
+    if(($name != '') && ($parentName != '') && ($adress != '') && ($email != '') && ($parentEmail != '') && ($phone != '') && ($parentPhone != '') && ($birthdate != '')) {
+      $sql->set("INSERT INTO medlemmar (name, parentName, adress, adressTwo, email, parentEmail, phone, parentPhone, birthdate, youthcenter, gender) VALUES(\"". $name."\", \"". $parentName."\", \"". $adress."\", \"". $adressTwo."\", \"". $email."\", \"". $parentEmail."\", \"". $phone."\", \"". $parentPhone."\", \"". $birthdate."\", \"". $youthcenter."\", \"". $gender."\"); ");
+      echo"<div class=\"text-center white-text\">Du är nu registrerad</div>";
+    }
+  } else {
+    if(($name != '') && ($adress != '') && ($email != '') && ($phone != '') && ($birthdate != '')) {
+      $sql->set("INSERT INTO medlemmar (name, adress, email, phone, birthdate, youthcenter, gender) VALUES(\"". $name."\", \"". $adress."\", \"". $email."\", \"". $phone."\", \"". $birthdate."\", \"". $youthcenter."\", \"". $gender."\"); ");
+      echo"<div class=\"text-center white-text\">Du är nu registrerad</div>";
+    }
+  }
+}
+
+
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,51 +62,68 @@
   <div class="register-logo">
     <a href="../../index2.html"><b>KFGF</b>Registrering</a>
   </div>
-  
   <div class="register-box-body">
     <p class="login-box-msg">Registrera en ny Medlem</p>
 
-    <form action="../../index.html" method="post">
+    <form action="#" method="post">
+
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Namn">
+        <div class="checkbox icheck">
+          <label>
+            <input type="checkbox" name="age" id="ageCheck" clas="ageCheck"> Användaren är 18 eller äldre
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Namn" name="name">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Föräldrars namn">
+
+      <div class="form-group has-feedback parentInfo" >
+        <input type="text" class="form-control" placeholder="Föräldrars namn" name="parentName">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
+
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Adress">
-        <span class="glyphicon glyphicon-home form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Adress 2">
-        <span class="glyphicon glyphicon-home form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+        <input type="email" class="form-control" placeholder="Email" name="email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback" >
-        <input type="email" class="form-control" placeholder="Föräldrars Email">
+
+      <div class="form-group has-feedback parentInfo" >
+        <input type="email" class="form-control" placeholder="Föräldrars Email" name="parentEmail">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
+
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" id="parentPhone" placeholder="Telefonnummer">
+        <input type="adress" class="form-control" placeholder="Adress" name="adress">
+        <span class="glyphicon glyphicon-home form-control-feedback"></span>
+      </div>
+
+      <div class="form-group has-feedback parentInfo" >
+        <input type="adress" class="form-control" placeholder="Adress 2" name="adressTwo">
+        <span class="glyphicon glyphicon-home form-control-feedback"></span>
+      </div>
+
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" id="phone" placeholder="Telefonnummer" name="phone">
         <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" id="phone" placeholder="Föräldrars Telefonnummer">
+
+      <div class="form-group has-feedback parentInfo" >
+        <input type="text" class="form-control" id="parentPhone" placeholder="Föräldrars Telefonnummer" name="parentPhone">
         <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
       </div>
+
       <div class="form-group has-feedback">
         <label for="">(YYYY/MM/DD/XXXX)</label>
-        <input type="text" class="form-control" id="birthdate" placeholder="Födelsedatum">
+        <input type="text" class="form-control" id="birthdate" name="birthdate" placeholder="Födelsedatum">
         <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
       </div>
+
       <div class="form-group has-feedback">
         <label for="">Fritidsgård</label>
-        <select class="selectpicker form-control"> 
+        <select class="selectpicker form-control" name="youthcenter"> 
           <option>Barbacka</option>
           <option>Degeberga</option>
           <option>Fjälkinge</option>
@@ -90,21 +137,16 @@
           <option>Österäng</option>
         </select>
       </div>
+
       <div class="form-group has-feedback">
         <label for="">Kön</label>
-        <select class="selectpicker form-control">
+        <select class="selectpicker form-control" name="gender">
           <option>Man</option>
           <option>Kvinna</option>
           <option>Annat</option>
         </select>
       </div>
-      <div class="form-group has-feedback">
-        <label for="">Betalt</label>
-        <select class="selectpicker form-control">
-          <option>Ja</option>
-          <option>Nej</option>
-        </select>
-      </div>
+
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
@@ -140,7 +182,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script> -->
+
 
 <script>
   $("#phone").mask('000-000 00 00');
@@ -162,6 +205,14 @@
       increaseArea: '20%' // optional
     });
   });
+
+$('input').on('ifChecked', function (event){
+  $(".parentInfo").fadeOut('medium');
+});
+$('input').on('ifUnchecked', function (event) {
+    $(".parentInfo").fadeIn('medium');
+});
+
 </script>
 </body>
 </html>

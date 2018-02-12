@@ -1,3 +1,43 @@
+<?php 
+require('../../sql.php');
+$sql = new sql();
+if(isset($_POST['name'])) {
+  $name = $_POST['name'];
+  $uname = $_POST['uname'];
+  $email = $_POST['email'];
+  $phone = $_POST['phone'];
+  $pass = $_POST['pass'];
+  $passCheck = $_POST['passCheck'];
+  $rank = $_POST['rank'];
+  if(($name != '') && ($uname != '') && ($email != '') && ($phone != '') && ($pass != '')) {
+    if($pass == $passCheck) {
+      $pass = crypt($pass, 'KFGFPass');
+      $ok = $sql->get("select * FROM admin WHERE uname = \"". $uname. "\"");
+      if(count($ok) == 0) {
+        $ok = $sql->get("select * FROM admin WHERE email = \"". $email. "\"");
+        if(count($ok) == 0) {
+          $ok = $sql->get("select * FROM admin WHERE phone = \"". $phone. "\"");
+          if(count($ok) == 0) {
+            $ok = $sql->set("INSERT INTO admin (name, uname, email, phone, pass, rank) VALUES(\"". $name."\", \"". $uname."\", \"". $email."\", \"". $phone."\", \"". $pass."\", \"". $rank."\"); ");
+            echo"<div class=\"text-center white-text\">Du är nu registrerad</div>";
+          } else {
+            echo"<div class=\"text-center white-text\">Ditt telefonnummer är redan i användning</div>";
+          }
+        } else {
+          echo"<div class=\"text-center white-text\">Din email är redan i användning</div>";
+        }
+      } else {
+        echo"<div class=\"text-center white-text\">Ditt användarnamn är redan taget</div>";
+      }
+    } else {
+    echo"<div class=\"text-center white-text\"> Ditt lösenord matchar inte </div>";
+  }
+  } else {
+    echo"<div class=\"text-center white-text\">Du måste fylla i alla rutor</div>";
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,41 +76,47 @@
   <div class="register-box-body">
     <p class="login-box-msg">Registrera en ny ledare</p>
 
-    <form action="../../index.html" method="post">
+    <form action="#" method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Namn">
+        <input type="text" class="form-control" placeholder="Namn" name="name">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
+
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Användarnamn">
+        <input type="text" class="form-control" placeholder="Användarnamn" name="uname">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
+
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+        <input type="email" class="form-control" placeholder="Email" name="email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-      <div class="input-group has-feedback">
-        <span class="input-group-addon">+46</span>
-        <input type="text" class="form-control" id="phone" placeholder="Telefonnummer">
-        <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
-      </div><br>
+
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Lösenord">
+        <input type="text" class="form-control" id="phone" placeholder="Telefonnummer" name="phone">
+        <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
+      </div>
+
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Lösenord" name="pass">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
+
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Skriv in lösenord igen">
+        <input type="password" class="form-control" placeholder="Skriv in lösenord igen" name="passCheck">
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
+
       <div class="form-group has-feedback">
         <label for="">Ranker</label>
-        <select class="selectpicker form-control">
+        <select class="selectpicker form-control" name="rank">
           <!-- <option>Admin</option> -->
           <option>Verksamhetschef</option>
           <option>Föreståndare</option>
           <option>Fritidsledare</option>
         </select>
       </div>
+
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
@@ -109,8 +155,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
 
 <script>
-  $("#phone").mask('00-000 00 00');
+  $("#phone").mask('000-000 00 00');
 </script>
+
 
 <script>
   $(function () {
