@@ -1,7 +1,6 @@
 <?php 
 session_start();
 require('sql.php');
-$sql = new sql();
  ?>
 <!DOCTYPE html>
 <html>
@@ -78,7 +77,7 @@ $sql = new sql();
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
-        <? if(isset($_SESSION['admin'])): ?>
+        <? if ((isset($_SESSION['admin'])) || (isset($_SESSION['operator'])) ||  (isset($_SESSION['director'])) || (isset($_SESSION['recreation']))): ?>
         	<li class="active"><a href="logout.php"><i class="fa fa-link"></i> <span>logga ut</span></a></li>
         	<li><a href="register2.php"><i class="fa fa-link"></i> <span>Registrera en ny medlem</span></a></li>
           <li><a href="register.php"><i class="fa fa-link"></i> <span>Registrera en ny ledare</span></a></li>
