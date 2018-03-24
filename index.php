@@ -69,7 +69,17 @@ require('sql.php');
           <img src="dist/img/bildekasit.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
+        <? if (isset($_SESSION['admin'])): ?>
           <h3>Admin</h3>
+        <? elseif (isset($_SESSION['operator'])): ?>
+          <h4>Verksamhetschef</h4>
+        <? elseif (isset($_SESSION['director'])): ?>
+          <h3>Föreståndare</h3>
+        <? elseif (isset($_SESSION['recreation'])): ?>
+          <h3>Fritidsledare</h3>
+        <? else: ?>
+          <h3>Gäst</h3>
+        <? endif ?>
         </div>
       </div>
 
@@ -81,6 +91,7 @@ require('sql.php');
         	<li class="active"><a href="logout.php"><i class="fa fa-link"></i> <span>logga ut</span></a></li>
         	<li><a href="register2.php"><i class="fa fa-link"></i> <span>Registrera en ny medlem</span></a></li>
           <li><a href="register.php"><i class="fa fa-link"></i> <span>Registrera en ny ledare</span></a></li>
+          <li><a href="statistik.php"><i class="fa fa-link"></i> <span>Statistik</span></a></li>
         <? else: ?>
           <li class="active"><a href="login.php"><i class="fa fa-link"></i> <span>logga in</span></a></li>
 		    <? endif ?>
